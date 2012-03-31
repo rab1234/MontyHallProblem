@@ -11,6 +11,7 @@ Give a little history ...
 %p
 %p
 - if @step >= 2
+  A fabulous prize is behind one of these three doors.  Pick one!
   = form_tag '/games/choose', :method => :get, :id => 'pick_door' do
     = label_tag "Door Number 1"
     = radio_button_tag "Door", 1
@@ -25,4 +26,18 @@ Give a little history ...
 %p
 %p
 - if @step >= 3
-  Monty's Choice
+  You picked
+  = @game.u_door
+  %p
+  Monty shows you what is behind
+  = @game.show_door
+  A GOAT!
+  %p
+  %p
+  Do you want to switch to
+  = @game.other_door?
+  %br
+  = link_to "Yes!", '/games/switch'
+  = link_to "No!", '/games/no_switch'
+
+

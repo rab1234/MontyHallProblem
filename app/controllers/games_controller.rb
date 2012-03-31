@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   
   def play
     @step = 2
-    #@game = Game.create!(:w_door => rand(3) + 1)
+    @game = Game.create!(:w_door => rand(3) + 1)
     render 'index'
   end
   

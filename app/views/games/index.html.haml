@@ -1,6 +1,28 @@
 %h1 The Monty Hall Problem
 %p
 Give a little history ...
+%br
+%hr
+=puts params.inspect
+%hr
 %p
 "Would you like to play a game?"
-=button_tag "Yes!"
+= link_to "Yes!", '/games/play'
+%p
+%p
+- if @step >= 2
+  = form_tag '/games/choose', :method => :get, :id => 'pick_door' do
+    = label_tag "Door Number 1"
+    = radio_button_tag "Door", 1
+    %br
+    = label_tag "Door Number 2"
+    = radio_button_tag "Door", 2
+    %br
+    = label_tag "Door Number 3"
+    = radio_button_tag "Door", 3
+    %br
+    = link_to "Choose", '/games/choose'
+%p
+%p
+- if @step >= 3
+  Monty's Choice

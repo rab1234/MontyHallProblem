@@ -22,3 +22,23 @@ Feature: Play the game
     When I choose "Door_2"
     And I follow "Choose"
     Then I should see "Monty's Choice"
+    
+  Scenario: 4. Player decides to switch
+    Given I am on the home page
+    When I follow "Yes!"
+    Then I should see "Door number 1" 
+    When I choose "Door_2"
+    And I follow "Choose"
+    Then I should see "A GOAT!"
+    And I follow "Yes!"
+    Then I should see "Result"
+    
+  Scenario: 5. Player decides not to switch
+    Given I am on the home page
+    When I follow "Yes!"
+    Then I should see "Door number 1" 
+    When I choose "Door_2"
+    And I follow "Choose"
+    Then I should see "A GOAT!"
+    And I follow "No!"
+    Then I should see "Result"    

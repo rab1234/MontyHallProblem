@@ -18,6 +18,18 @@ class GamesController < ApplicationController
     render 'index'
   end
   
+  def switch_door
+    @step = 4
+    @game = Game.first
+    render 'index'
+  end
+  
+  def no_switch
+    @step = 4
+    @game = Game.first
+    render 'index'
+  end
+  
   # -- private --
   private
   def pick_show_door

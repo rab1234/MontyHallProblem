@@ -13,21 +13,21 @@ Feature: Play the game
     Given I am on the home page
     When I follow "Yes!"
     Then I should see "Door number 1"
-    And I should not see "Monty's Choice"
+    And I should not see "Monty shows you"
     
   Scenario: 3. Show Montys Choice
     Given I am on the home page
     When I follow "Yes!"
     Then I should see "Door number 1" 
-    When I choose "Door_2"
+    When I choose "games[choose]"
     And I follow "Choose"
-    Then I should see "Monty's Choice"
+    Then I should see "Monty shows you"
     
   Scenario: 4. Player decides to switch
     Given I am on the home page
     When I follow "Yes!"
     Then I should see "Door number 1" 
-    When I choose "Door_2"
+    When I choose "games[choose]"
     And I follow "Choose"
     Then I should see "A GOAT!"
     And I follow "Yes!"
@@ -37,7 +37,7 @@ Feature: Play the game
     Given I am on the home page
     When I follow "Yes!"
     Then I should see "Door number 1" 
-    When I choose "Door_2"
+    When I choose "games[choose]"
     And I follow "Choose"
     Then I should see "A GOAT!"
     And I follow "No!"

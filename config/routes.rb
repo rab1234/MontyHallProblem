@@ -5,6 +5,9 @@ Mhp::Application.routes.draw do
   match '/games' => 'games#index'
   match '/games/play' => 'games#play'
   match '/games/choose' => 'games#choose'
+  match '/games/no_switch' => 'games#no_switch'
+  match '/games/switch_door' => 'games#switch_door'
+  
 
   
   # The priority is based upon order of creation:

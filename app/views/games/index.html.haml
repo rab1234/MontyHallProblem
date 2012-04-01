@@ -14,15 +14,15 @@ Give a little history ...
   A fabulous prize is behind one of these three doors.  Pick one!
   = form_tag '/games/choose', :method => :get, :id => 'pick_door' do
     = label_tag "Door Number 1"
-    = radio_button_tag "Door", 1
+    = radio_button("games", "choose", "Door number 1")
     %br
     = label_tag "Door Number 2"
-    = radio_button_tag "Door", 2
+    = radio_button("games", "choose", "Door number 2")
     %br
     = label_tag "Door Number 3"
-    = radio_button_tag "Door", 3
+    = radio_button("games", "choose", "Door number 3")
     %br
-    = link_to "Choose", '/games/choose'
+    = link_to "Choose", '/games/choose', :door => "value"
 %p
 %p
 - if @step >= 3
@@ -37,7 +37,11 @@ Give a little history ...
   Do you want to switch to
   = @game.other_door?
   %br
-  = link_to "Yes!", '/games/switch'
+  = link_to "Yes!", '/games/switch_door'
   = link_to "No!", '/games/no_switch'
+%p
+%p
+- if @step >= 4
+  The Result is ...
 
 

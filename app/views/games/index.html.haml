@@ -12,30 +12,21 @@ Give a little history ...
 %p
 - if @step >= 2
   A fabulous prize is behind one of these three doors.  Pick one!
-  = form_tag '/games/choose', :method => :get, :id => 'pick_door' do
-    = label_tag "Door Number 1"
-    = radio_button("games", "choose", "Door number 1")
-    %br
-    = label_tag "Door Number 2"
-    = radio_button("games", "choose", "Door number 2")
-    %br
-    = label_tag "Door Number 3"
-    = radio_button("games", "choose", "Door number 3")
-    %br
-    = link_to "Choose", '/games/choose', :door => "value"
+  %br
+  = link_to "Door Number 1", '/games/choose/1'
+  %br
+  = link_to "Door Number 2", '/games/choose/2'
+  %br
+  = link_to "Door Number 3", '/games/choose/3'
 %p
 %p
 - if @step >= 3
-  You picked
-  = @game.u_door
+  = "You picked door number #{@game.u_door}"
   %p
-  Monty shows you what is behind
-  = @game.show_door
-  A GOAT!
+  = "Monty shows you what is behind door number #{@game.show_door} - A GOAT!"
   %p
   %p
-  Do you want to switch to
-  = @game.other_door?
+  = "You picked door number #{@game.u_door}.  Do you want to switch to door number #{@game.other_door}?"
   %br
   = link_to "Yes!", '/games/switch_door'
   = link_to "No!", '/games/no_switch'

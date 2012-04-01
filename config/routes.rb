@@ -4,7 +4,7 @@ Mhp::Application.routes.draw do
   get "games/index"
   match '/games' => 'games#index'
   match '/games/play' => 'games#play'
-  match '/games/choose' => 'games#choose'
+  match '/games/choose/:id' => 'games#choose'
   match '/games/no_switch' => 'games#no_switch'
   match '/games/switch_door' => 'games#switch_door'
   

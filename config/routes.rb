@@ -7,6 +7,7 @@ Mhp::Application.routes.draw do
   match '/games/choose/:id' => 'games#choose'
   match '/games/no_switch' => 'games#no_switch'
   match '/games/switch_door' => 'games#switch_door'
+  match '/' => 'games#index'
   
 
   

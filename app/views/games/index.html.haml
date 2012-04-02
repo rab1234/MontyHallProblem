@@ -3,9 +3,7 @@
 Give a little history ...
 %br
 %hr
-=puts params.inspect
-%br
-=puts @game.inspect
+
 %hr
 %p
 - if @step == 1
@@ -36,14 +34,13 @@ Give a little history ...
 %p
 %p
 - if @step >= 4
+  = "Switched door: #{@game.sw_door}"
+  %br
+  = "User door: #{@game.u_door}"
+  %br
   = "The winning door is door number #{@game.w_door}."
   %br
-  = "You picked door number #{@game.u_door}."
-  %p
-  - if @game.w_door == @game.u_door
-    = "You are a WINNER!"
-  - else
-    = "Sorry, you lost."
+  ="#{@message}"
   %p
   Would you like to play again?
   = link_to "Yes!", '/games/play', :again => "Yes"

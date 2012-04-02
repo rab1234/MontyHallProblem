@@ -8,14 +8,18 @@ class GamesController < ApplicationController
     # if user is playing again
     again = params[:again]
     if :again == "Yes"
-      @game = Game.find_by_SessionID(request.session_options[:id])
+      @game = Game.find(session[:id])
       @game.w_door = get_random_door
-      @game.u_door = nil
-      @game.show_door = nil
-      @game.other_door = nil
+      @game.u_door = 0
+      @game.show_door = 0
+      @game.other_door = 0
+      @game.sw_door = 0
     else
-      @game = Game.create!(:SessionID => request.session_options[:id])
-      @game.w_door = get_random_door
+      winner = get_random_door
+      @game = Game.create!
+      @game.w_door = winner
+      @game.save
+      session[:id] = @game.id
     end
     @game.save
     render 'index'
@@ -24,30 +28,45 @@ class GamesController < ApplicationController
   def choose
     # user has selected a door
     @step = 3
-    @game = Game.find_by_SessionID(request.session_options[:id])
-    @game.update_attribute(:u_door, params[:id])
+    @game = Game.find(session[:id])
+    @game.u_door = params[:id]
+    @game.save
     pick_show_door
     render 'index'
   end
   
   def switch_door
     @step = 4
-    @game = Game.find_by_SessionID(request.session_options[:id])
-    @game.u_door = @game.other_door
+    @game = Game.find(session[:id])
+    @game.sw_door = @game.other_door
     @game.save
+    @switched = true
+    if @game.w_door == @game.sw_door
+      @msg = "You won!"
+    else
+      @msg = "Sorry, you lost."
+    end
+    @message = "You switched to door number #{@game.sw_door}.  #{@msg}"
     render 'index'
   end
   
   def no_switch
     @step = 4
-    @game = Game.find_by_SessionID(request.session_options[:id])
+    @switched = false
+    @game = Game.find(session[:id])
+    if @game.w_door == @game.u_door
+      @msg = "You won!"
+    else
+      @msg = "Sorry, you lost."
+    end
+    @message = "You stayed with door number #{@game.u_door}.  #{@msg}"
     render 'index'
   end
   
   # -- private --
   private
   def pick_show_door
-    @game = Game.find_by_SessionID(request.session_options[:id])
+    @game = Game.find(session[:id])
     # remove u_door and w_door from array [1,2,3]
     a = [1,2,3]
     b = [@game.u_door, @game.w_door]

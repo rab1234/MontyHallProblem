@@ -42,8 +42,14 @@ Give a little history ...
   %br
   ="#{@message}"
   %p
+  %p
+  = "Players who switched have won #{@percent_switch}% of the time."
+  %br
+  = "Players who did not switch have won #{@percent_no_switch}% of the time."
+  %p
+  %p
   Would you like to play again?
-  = link_to "Yes!", '/games/play', :again => "Yes"
+  = link_to "Yes!", '/games/play'
 
 
 

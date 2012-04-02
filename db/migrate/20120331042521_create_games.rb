@@ -6,8 +6,8 @@ class CreateGames < ActiveRecord::Migration
       t.integer :show_door
       t.integer :other_door
       t.integer :sw_door
-      t.integer :num_games
-      t.integer :num_switched
+      t.boolean :switched
+      t.boolean :won
       t.timestamps
     end
   end

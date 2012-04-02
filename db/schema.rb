@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(:version => 20120331042521) do
     t.integer  "show_door"
     t.integer  "other_door"
     t.integer  "sw_door"
-    t.integer  "num_games"
-    t.integer  "num_switched"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.boolean  "switched"
+    t.boolean  "won"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

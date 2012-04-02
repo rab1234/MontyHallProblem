@@ -4,13 +4,16 @@ Give a little history ...
 %br
 %hr
 =puts params.inspect
+%br
+=puts @game.inspect
 %hr
 %p
-"Would you like to play a game?"
-= link_to "Yes!", '/games/play'
+- if @step == 1
+  "Would you like to play a game?"
+  = link_to "Yes!", '/games/play'
 %p
 %p
-- if @step >= 2
+- if @step == 2
   A fabulous prize is behind one of these three doors.  Pick one!
   %br
   = link_to "Door Number 1", '/games/choose/1'
@@ -28,11 +31,22 @@ Give a little history ...
   %p
   = "You picked door number #{@game.u_door}.  Do you want to switch to door number #{@game.other_door}?"
   %br
-  = link_to "Yes!", '/games/switch_door'
+  = link_to "Yes!", '/games/switch_door/'
   = link_to "No!", '/games/no_switch'
 %p
 %p
 - if @step >= 4
-  The Result is ...
+  = "The winning door is door number #{@game.w_door}."
+  %br
+  = "You picked door number #{@game.u_door}."
+  %p
+  - if @game.w_door == @game.u_door
+    = "You are a WINNER!"
+  - else
+    = "Sorry, you lost."
+  %p
+  Would you like to play again?
+  = link_to "Yes!", '/games/play', :again => "Yes"
+
 
 

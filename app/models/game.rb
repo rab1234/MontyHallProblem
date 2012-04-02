@@ -1,3 +1,3 @@
 class Game < ActiveRecord::Base
-  attr_accessible :other_door, :show_door, :u_door, :w_door
+  attr_accessible :u_door, :SessionID
 end

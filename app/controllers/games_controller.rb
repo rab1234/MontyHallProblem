@@ -4,9 +4,20 @@ class GamesController < ApplicationController
   end
   
   def play
-    # user has clicked "Yes!"
     @step = 2
-    @game = Game.create!(:w_door => get_random_door, :SessionID => request.session_options[:id])
+    # if user is playing again
+    again = params[:again]
+    if :again == "Yes"
+      @game = Game.find_by_SessionID(request.session_options[:id])
+      @game.w_door = get_random_door
+      @game.u_door = nil
+      @game.show_door = nil
+      @game.other_door = nil
+    else
+      @game = Game.create!(:SessionID => request.session_options[:id])
+      @game.w_door = get_random_door
+    end
+    @game.save
     render 'index'
   end
   
@@ -15,12 +26,15 @@ class GamesController < ApplicationController
     @step = 3
     @game = Game.find_by_SessionID(request.session_options[:id])
     @game.update_attribute(:u_door, params[:id])
+    pick_show_door
     render 'index'
   end
   
   def switch_door
     @step = 4
     @game = Game.find_by_SessionID(request.session_options[:id])
+    @game.u_door = @game.other_door
+    @game.save
     render 'index'
   end
   
@@ -37,11 +51,22 @@ class GamesController < ApplicationController
     # remove u_door and w_door from array [1,2,3]
     a = [1,2,3]
     b = [@game.u_door, @game.w_door]
-    c = a - b
-    # return show door from remaining doors
-    @game.show_door = c.sample
-    @game.update_attribute(:show_door => @game.show_door)
-    return @game.show_door
+    c = a - b  # -- c contains any door not winner and not picked by user --
+    
+    # return show door from remaining door(s)
+    case c.length
+    when 2
+      # -- if length is 2, user selected winning door; pick show_door from remaining 2 --
+      #@game.show_door = c.sample
+      #@game.other_door = (c - [@game.show_door])[0]  # -- the door not shown is the other door --
+      @game.show_door = c[0]
+      @game.other_door = c[1]
+    when 1
+      # -- if length is 1, then user did not pick the winning door --
+      @game.show_door = c[0]
+      @game.other_door = @game.w_door
+    end
+    @game.save
   end
   
   def get_random_door

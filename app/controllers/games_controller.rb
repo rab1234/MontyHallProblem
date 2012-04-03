@@ -1,4 +1,7 @@
+require 'mathn'
+
 class GamesController < ApplicationController
+  attr_accessor :percent_switch, :percent_no_switch
   def index
     @step = 1
   end
@@ -77,19 +80,20 @@ class GamesController < ApplicationController
   # -- private --
   private
   def calc_stats
-    total_switch_games = Game.where('switched = ?', true).count
-    switch_winners = Game.where('switched = ? AND won = ?', true, true).count
-    if total_switch_games == 0
+    ts = Game.find_all_by_switched(true).count
+    sw = Game.find_all_by_switched_and_won(true, true).count
+    if ts == 0
       @percent_switch = " No Data "
     else
-      @percent_switch = (switch_winners/total_switch_games) * 100
+      @percent_switch = ((sw.to_f / ts.to_f) * 100).round(2)
     end
-    total_no_switch_games = Game.where('switched = ?', false).count
-    no_switch_winners = Game.where('switched = ? AND won = ?', false, true).count
-    if total_no_switch_games == 0
+    
+    tns = Game.find_all_by_switched(false).count
+    nsw = Game.find_all_by_switched_and_won(false, true).count    
+    if tns == 0
       @percent_no_switch = "No Data "
     else
-      @percent_no_switch = (no_switch_winners/total_no_switch_games) * 100
+      @percent_no_switch = ((nsw.to_f / tns.to_f) * 100).round(2)
     end
   end
   
@@ -104,8 +108,6 @@ class GamesController < ApplicationController
     case c.length
     when 2
       # -- if length is 2, user selected winning door; pick show_door from remaining 2 --
-      #@game.show_door = c.sample
-      #@game.other_door = (c - [@game.show_door])[0]  # -- the door not shown is the other door --
       @game.show_door = c[0]
       @game.other_door = c[1]
     when 1

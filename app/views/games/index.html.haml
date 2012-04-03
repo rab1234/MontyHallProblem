@@ -1,6 +1,18 @@
 %h1 The Monty Hall Problem
 %p
-Give a little history ...
+The Monty Hall Problem is a well known probability problem related to a popular television game show
+of the 1970's hosted by Monty Hall.  Prizes were hidden behind three curtained "doors".  One was the
+grand prize, and the other two were prizes of considerably lesser value.  The contestant would choose
+one of the "doors".  Monty Hall would then show the contestant and the audience what was behind one of 
+the remaining doors.  Monty Hall knew which door hid the grand prize and he would therefore never show 
+the contents of that one.  The contestant was given the opportunity to change his or her mind and select
+the other remaining door.  The question then became, is it better to switch doors when given the opportunity
+to do so?  According to Wikipedia, this question was first posed by Steve Selman to the American
+Statistician in 1975.  It was popularized when the same question was posed to Marilyn vos Savant, a 
+columnist noted for her exceptionally high I.Q.  Marilyn vos Savant stated that it was better to switch
+doors when given the opportunity because you would have a 66.66% probability of winning the grand prize.
+This opinion was a matter of considerable controversy at the time with some eminent scholars publicly stating 
+that the probability was 50% and there was no advantage to switching.
 %br
 %hr
 
@@ -9,6 +21,9 @@ Give a little history ...
 - if @step == 1
   "Would you like to play a game?"
   = link_to "Yes!", '/games/play'
+  %p
+  "No thanks, just show me the statistics for those who have played."
+//  = link_to "Stats", 'route'
 %p
 %p
 - if @step == 2
@@ -34,10 +49,6 @@ Give a little history ...
 %p
 %p
 - if @step >= 4
-  = "Switched door: #{@game.sw_door}"
-  %br
-  = "User door: #{@game.u_door}"
-  %br
   = "The winning door is door number #{@game.w_door}."
   %br
   ="#{@message}"

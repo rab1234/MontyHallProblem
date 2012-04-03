@@ -1,29 +1,31 @@
 %h1 The Monty Hall Problem
 %p
-The Monty Hall Problem is a well known probability problem related to a popular television game show
-of the 1970's hosted by Monty Hall.  Prizes were hidden behind three curtained "doors".  One was the
-grand prize, and the other two were prizes of considerably lesser value.  The contestant would choose
-one of the "doors".  Monty Hall would then show the contestant and the audience what was behind one of 
-the remaining doors.  Monty Hall knew which door hid the grand prize and he would therefore never show 
-the contents of that one.  The contestant was given the opportunity to change his or her mind and select
-the other remaining door.  The question then became, is it better to switch doors when given the opportunity
-to do so?  According to Wikipedia, this question was first posed by Steve Selman to the American
-Statistician in 1975.  It was popularized when the same question was posed to Marilyn vos Savant, a 
-columnist noted for her exceptionally high I.Q.  Marilyn vos Savant stated that it was better to switch
-doors when given the opportunity because you would have a 66.66% probability of winning the grand prize.
-This opinion was a matter of considerable controversy at the time with some eminent scholars publicly stating 
-that the probability was 50% and there was no advantage to switching.
-%br
-%hr
+The Monty Hall Problem is a well known probability problem which takes its name from a popular television game show
+of the 1970's featuring host Monty Hall.  Prizes were hidden behind three curtained "doors".  One was the
+grand prize and the other two were prizes of considerably lesser value.  The contestant would be given the 
+prize behind the door of his or her choice.  After the contestant chose one of the three doors, Monty Hall would then show the contestant and the audience what was behind one of 
+the remaining two doors.  Because Monty Hall knew which door hid the grand prize, he would never show 
+the contents of that one.  After displaying the contents of one of the doors, there were, of course, only two doors remaining, the one already chosen by the contestant and the other whose contents had not been revealed.  Monty Hall then gave the contestant 
+the opportunity to change his or her mind and select
+the other remaining door.
 
+%p#question The famous question posed was "should the contestant switch doors when given the opportunity to do so?"
+
+%p
+According to
+= link_to "Wikipedia", "http://en.wikipedia.org/wiki/Monty_Hall_problem"
+this question was first posed by Steve Selman to the American
+Statistician in 1975.  It was popularized when the same question was posed to Marilyn vos Savant, a 
+columnist noted for her exceptionally high I.Q.  Marilyn vos Savant told her readers that the contestant had a 33% probability of winning if he or she did not switch doors, and a 67% probability of winning if he or she did switch and therefore it was better for the contestant to switch doors when given the opportunity.
+This opinion was a matter of considerable controversy at the time with some eminent scholars publicly stating 
+that because there were only two doors remaining, each had an equal 50% probability of concealing the grand prize and, therefore, there was no advantage to switching.
+%p#question So, what do you think?
+%hr
 %hr
 %p
 - if @step == 1
   "Would you like to play a game?"
   = link_to "Yes!", '/games/play'
-  %p
-  "No thanks, just show me the statistics for those who have played."
-//  = link_to "Stats", 'route'
 %p
 %p
 - if @step == 2
@@ -36,7 +38,7 @@ that the probability was 50% and there was no advantage to switching.
   = link_to "Door Number 3", '/games/choose/3'
 %p
 %p
-- if @step >= 3
+- if @step == 3
   = "You picked door number #{@game.u_door}"
   %p
   = "Monty shows you what is behind door number #{@game.show_door} - A GOAT!"
@@ -48,7 +50,7 @@ that the probability was 50% and there was no advantage to switching.
   = link_to "No!", '/games/no_switch'
 %p
 %p
-- if @step >= 4
+- if @step == 4
   = "The winning door is door number #{@game.w_door}."
   %br
   ="#{@message}"

@@ -1,3 +1,30 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body
+{
+font-size:110%;
+font-family:verdana,arial,'sans serif';
+background-image:url('gradient.png');
+background-repeat:repeat-x;
+background-color:#FFFFF0;
+color:#000080;
+margin:100px;
+}
+
+#question {
+  text-align:center;
+  color:maroon;
+}
+
+h1 {font-size:200%;}
+h2 {font-size:140%;}
+h3 {font-size:110%;}
+
+th {background-color:#ADD8E6;}
+
+ul {list-style:circle;}
+ol {list-style:upper-roman;}
+
+a:link {color:#000080;}
+a:hover {color:red;}

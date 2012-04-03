@@ -1,6 +1,5 @@
 Mhp::Application.routes.draw do
   
-  get "game/index"
   get "games/index"
   match '/games' => 'games#index'
   match '/games/play' => 'games#play'
@@ -8,6 +7,7 @@ Mhp::Application.routes.draw do
   match '/games/no_switch' => 'games#no_switch'
   match '/games/switch_door' => 'games#switch_door'
   match '/' => 'games#index'
+  root :to => 'games#index'
   
 
   

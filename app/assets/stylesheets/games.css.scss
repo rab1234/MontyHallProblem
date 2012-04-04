@@ -9,12 +9,21 @@ background-image:url('gradient.png');
 background-repeat:repeat-x;
 background-color:#FFFFF0;
 color:#000080;
-margin:100px;
+margin:40px 100px;
 }
 
 #question {
   text-align:center;
   color:maroon;
+}
+
+#message-won {
+  font-weight:bold;
+  color:green
+}
+
+#message-lost {
+  color:red
 }
 
 h1 {font-size:200%;}

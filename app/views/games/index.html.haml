@@ -1,6 +1,6 @@
 %h1 The Monty Hall Problem
 %p
-The Monty Hall Problem is a well known probability problem which takes its name from a popular television game show
+This is a computer simulation of the Monty Hall problem.  The Monty Hall problem is a well known probability problem which takes its name from a popular television game show
 of the 1970's featuring host Monty Hall.  Prizes were hidden behind three curtained "doors".  One was the
 grand prize and the other two were prizes of considerably lesser value.  The contestant would be given the 
 prize behind the door of his or her choice.  After the contestant chose one of the three doors, Monty Hall would then show the contestant and the audience what was behind one of 
@@ -53,7 +53,10 @@ that because there were only two doors remaining, each had an equal 50% probabil
 - if @step == 4
   = "The winning door is door number #{@game.w_door}."
   %br
-  ="#{@message}"
+  - if @game.won
+    #message-won="#{@message}"
+  - unless @game.won
+    #message-lost="#{@message}"
   %p
   %p
   = "Players who switched have won #{@percent_switch}% of the time."

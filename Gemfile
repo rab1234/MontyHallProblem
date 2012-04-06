@@ -24,7 +24,8 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'simplecov', :require => false
   gem 'sqlite3'
-  gem 'sqlite3-ruby', :require => 'sqlite3'
+  #gem 'sqlite3-ruby', :require => 'sqlite3'
+  #gem 'activerecord-sqlite3-adapter'
 end
 
 group :test do
@@ -33,10 +34,10 @@ group :test do
                                            # with cucumber, see 
   # http://stackoverflow.com/questions/7719114/rails-3-1-1-and-cucumber-error
   gem 'rspec-rails'
-  gem 'ZenTest'
+  #gem 'ZenTest'
   gem 'cucumber-rails'
   gem 'cucumber-rails-training-wheels'
-  gem 'minitest'
+  #gem 'minitest'  # causing errors when loading rails console
   gem 'autotest'
   gem 'autotest-rails-pure'
   gem 'autotest-fsevent'

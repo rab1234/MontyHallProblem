@@ -12,33 +12,30 @@ Feature: Play the game
   Scenario: 2. Show Choose Door
     Given I am on the home page
     When I follow "Yes!"
-    Then I should see "Door number 1"
+    Then I should see "Door Number 1"
     And I should not see "Monty shows you"
     
   Scenario: 3. Show Montys Choice
     Given I am on the home page
     When I follow "Yes!"
-    Then I should see "Door number 1" 
-    When I choose "games[choose]"
-    And I follow "Choose"
+    Then I should see "Door Number 1" 
+    When I follow "Door Number 1"
     Then I should see "Monty shows you"
     
   Scenario: 4. Player decides to switch
     Given I am on the home page
     When I follow "Yes!"
-    Then I should see "Door number 1" 
-    When I choose "games[choose]"
-    And I follow "Choose"
-    Then I should see "A GOAT!"
-    And I follow "Yes!"
-    Then I should see "Result"
+    Then I should see "Door Number 1" 
+    When I follow "Door Number 1"
+    Then I should see "Monty shows you"
+    When I follow "Yes!"
+    Then I should see "Players who switched"
     
   Scenario: 5. Player decides not to switch
     Given I am on the home page
     When I follow "Yes!"
-    Then I should see "Door number 1" 
-    When I choose "games[choose]"
-    And I follow "Choose"
-    Then I should see "A GOAT!"
-    And I follow "No!"
-    Then I should see "Result"    
+    Then I should see "Door Number 1" 
+    When I follow "Door Number 1"
+    Then I should see "Monty shows you"
+    When I follow "No!"
+    Then I should see "Players who switched"  

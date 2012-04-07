@@ -7,17 +7,10 @@ class GamesController < ApplicationController
   end
   
   def play
+    
     @step = 2
     # if user is playing again
-    again = params[:again]
-    if :again == "Yes"
-      @game = Game.find(session[:rec_id])
-      @game.w_door = get_random_door
-      @game.u_door = 0
-      @game.show_door = 0
-      @game.other_door = 0
-      @game.sw_door = 0
-    else
+
       winner = get_random_door
       @game = Game.create!
       @game.w_door = winner
@@ -25,13 +18,17 @@ class GamesController < ApplicationController
       @game.switched = false
       @game.save
       session[:rec_id] = @game.id
-    end
+
     @game.save
     render 'index'
   end
   
   def choose
     # user has selected a door
+    #if @step != 2
+    #  redirect_to('index')
+    #  return
+    #end
     @step = 3
     @game = Game.find(session[:rec_id])
     @game.u_door = params[:id]
@@ -41,6 +38,8 @@ class GamesController < ApplicationController
   end
   
   def switch_door
+    # site is dysfunctional with following line.  I think because @step is not persisted.
+    #return redirect_to('index') unless @step == 3
     @step = 4
     @game = Game.find(session[:rec_id])
     @game.sw_door = @game.other_door
@@ -60,6 +59,10 @@ class GamesController < ApplicationController
   end
   
   def no_switch
+    #if @step != 3
+    #  redirect_to('index')
+    #  return
+    #end
     @step = 4
     @switched = false
     @game = Game.find(session[:rec_id])

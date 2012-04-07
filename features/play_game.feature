@@ -39,3 +39,9 @@ Feature: Play the game
     Then I should see "Monty shows you"
     When I follow "No!"
     Then I should see "Players who switched"  
+    
+  Scenario: 6. User does not access views in order
+    Given I manually input route
+    Then I should be redirected to the home page
+    And step should equal 99
+    

@@ -25,6 +25,26 @@ Feature: Play the game
     Then I should see "Players who switched"  
     
   Scenario: 4. User does not access views in correct order
-    Given I manually input route
+    Given I am on an unrelated web page
+    And I manually input a downstream route
     Then I should go to the home page
     
+  Scenario Outline: Game outcomes
+    Given I am on the home page
+    Then I should see "Would you like to play a game?"
+    When I follow "Yes!"
+    Then I should see "Door Number 1"
+    Given the following data <pick_door>, <win_door>, <other_door>, <switch_door>
+    And I follow "Door Number <pick_door>"
+    Then I should see "Monty shows you"
+    When asked if I want to switch, I follow <choice>
+    Then I should see <outcome>
+    
+    Examples:
+    | pick_door | win_door | other_door | switch_door | choice  | outcome  |
+    |     1     |     1    |     2      |       3     |   Yes!  | you lost |
+    |     1     |     2    |     3      |       1     |   Yes!  | You won! | 
+    |     1     |     1    |     2      |       3     |   No!   | You won! |
+    |     1     |     2    |     3      |       1     |   No!   | you lost |
+    |     1     |     3    |     2      |       3     |   Yes!  | you lost |
+        

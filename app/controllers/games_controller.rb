@@ -3,54 +3,44 @@ require 'mathn'
 class GamesController < ApplicationController
   attr_accessor :percent_switch, :percent_no_switch
   def index
-    @step = 1
+    @step = 1  #-- @step is used by view to determine what to make visible --
+    session[:rec_id] = nil
   end
   
   def play
-    
     @step = 2
-    # if user is playing again
-
-      winner = get_random_door
-      @game = Game.create!
-      @game.w_door = winner
-      @game.won = false
-      @game.switched = false
-      @game.save
-      session[:rec_id] = @game.id
-
+    winner = get_random_door
+    @game = Game.create!
+    @game.w_door = winner
+    @game.won = false
+    @game.switched = false
+    @game.save
+    session[:rec_id] = @game.id
     @game.save
     render 'index'
   end
   
   def choose
-    # user has selected a door
-    #if @step != 2
-    #  redirect_to('index')
-    #  return
-    #end
-    @step = 3
     begin
       @game = Game.find(session[:rec_id])
     rescue
       # user has manually entered URL (out of sequence)?
+      @step = 1
       return redirect_to('/games')
     end
     @game.u_door = params[:id]
     @game.save
     pick_show_door
+    @step = 3
     render 'index'
   end
   
   def switch_door
-    # site is dysfunctional with following line.  I think because @step is not persisted.
-    #return redirect_to('index') unless @step == 3
-    @step = 4
-    #get_user_record
     begin
       @game = Game.find(session[:rec_id])
     rescue
       # user has manually entered URL (out of sequence)?
+      @step = 1
       return redirect_to('/games')
     end
     @game.sw_door = @game.other_door
@@ -66,20 +56,17 @@ class GamesController < ApplicationController
     @game.save
     calc_stats
     @message = "You switched to door number #{@game.sw_door}.  #{@msg}"
+    @step = 4
     render 'index'
   end
   
   def no_switch
-    #if @step != 3
-    #  redirect_to('index')
-    #  return
-    #end
-    @step = 4
     @switched = false
     begin
       @game = Game.find(session[:rec_id])
     rescue
       # user has manually entered URL (out of sequence)?
+      @step = 1
       return redirect_to('/games')
     end
     @game.switched = false
@@ -93,6 +80,7 @@ class GamesController < ApplicationController
     @game.save
     calc_stats
     @message = "You stayed with door number #{@game.u_door}.  #{@msg}"
+    @step = 4
     render 'index'
   end
   

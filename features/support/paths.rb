@@ -15,6 +15,10 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/games'
+      
+    when /^an unrelated web page$/
+      # should stub this out
+      'http://google.com'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

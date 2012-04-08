@@ -22,10 +22,7 @@ gem 'haml-rails'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'simplecov', :require => false
   gem 'sqlite3'
-  #gem 'sqlite3-ruby', :require => 'sqlite3'
-  #gem 'activerecord-sqlite3-adapter'
 end
 
 group :test do
@@ -47,21 +44,10 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
+  gem 'simplecov', :require => false
 end
 
 group :production do
   gem 'pg'
   gem 'thin'
 end
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'

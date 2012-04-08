@@ -1,5 +1,6 @@
 When /^I play the game$/ do
   steps %{
+    Given I am on the home page
     Then I should see "Would you like to play a game?"
     And I should not see "Door number 1"
     When I follow "Yes!"
@@ -11,18 +12,13 @@ When /^I play the game$/ do
 end
 
 Given /^I manually input route$/ do
-  pending
-  @step = 99
+  #pending
   get '/games/switch_door/'
 end
 
-Then /^I should be redirected to the home page$/ do
-  pending
-  get '/games'
+Then /^(?:|I )should go to (.+)$/ do |page_name|
+  visit path_to(page_name)
 end
 
-Then /^step should equal (\d+)$/ do |arg1|
-  pending
-  @step.should == arg1
-end
+
 

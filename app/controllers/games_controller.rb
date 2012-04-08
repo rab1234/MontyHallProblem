@@ -30,7 +30,12 @@ class GamesController < ApplicationController
     #  return
     #end
     @step = 3
-    @game = Game.find(session[:rec_id])
+    begin
+      @game = Game.find(session[:rec_id])
+    rescue
+      # user has manually entered URL (out of sequence)?
+      return redirect_to('/games')
+    end
     @game.u_door = params[:id]
     @game.save
     pick_show_door
@@ -41,7 +46,13 @@ class GamesController < ApplicationController
     # site is dysfunctional with following line.  I think because @step is not persisted.
     #return redirect_to('index') unless @step == 3
     @step = 4
-    @game = Game.find(session[:rec_id])
+    #get_user_record
+    begin
+      @game = Game.find(session[:rec_id])
+    rescue
+      # user has manually entered URL (out of sequence)?
+      return redirect_to('/games')
+    end
     @game.sw_door = @game.other_door
     @game.switched = true
     @switched = true
@@ -65,7 +76,12 @@ class GamesController < ApplicationController
     #end
     @step = 4
     @switched = false
-    @game = Game.find(session[:rec_id])
+    begin
+      @game = Game.find(session[:rec_id])
+    rescue
+      # user has manually entered URL (out of sequence)?
+      return redirect_to('/games')
+    end
     @game.switched = false
     if @game.w_door == @game.u_door
       @msg = "You won!"
@@ -81,7 +97,7 @@ class GamesController < ApplicationController
   end
   
   # -- private --
-  private
+  #private
   def calc_stats
     ts = Game.find_all_by_switched(true).count
     sw = Game.find_all_by_switched_and_won(true, true).count

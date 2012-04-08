@@ -29,6 +29,16 @@ Feature: Play the game
     And I manually route to the "choose" action
     Then I should go to the home page
     
+  Scenario: 5. User does not access views in correct order
+    Given I am on an unrelated web page
+    And I manually route to the "switch_door" action
+    Then I should go to the home page
+    
+  Scenario: 6. User does not access views in correct order
+    Given I am on an unrelated web page
+    And I manually route to the "no_switch" action
+    Then I should go to the home page    
+  
   Scenario Outline: Game outcomes
     Given I am on the home page
     Then I should see "Would you like to play a game?"
@@ -43,6 +53,7 @@ Feature: Play the game
     Examples:
     | pick_door | win_door | other_door | switch_door | choice  | outcome  |
     |     1     |     1    |     2      |       3     |   Yes!  | you lost |
+    |     1     |     1    |     3      |       2     |   Yes!  | you lost |
     |     1     |     2    |     3      |       1     |   Yes!  | You won! | 
     |     1     |     1    |     2      |       3     |   No!   | You won! |
     |     1     |     2    |     3      |       1     |   No!   | you lost |

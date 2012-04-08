@@ -21,6 +21,11 @@ And /^I manually input a downstream route$/ do
   get '/games/switch_door/'
 end
 
+Given /^I manually route to the "([^"]*)" action$/ do |arg1|
+  arg1 == "choose" ? arg1 = arg1 + "/1" : arg1
+  get "/games/#{arg1}"
+end
+
 Then /^(?:|I )should go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end

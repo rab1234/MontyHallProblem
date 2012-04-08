@@ -1,3 +1,6 @@
+#
+# Scenarios 1 - 3
+#
 When /^I play the game$/ do
   steps %{
     Given I am on the home page
@@ -11,6 +14,9 @@ When /^I play the game$/ do
   }
 end
 
+#
+# Scenario 4
+#
 And /^I manually input a downstream route$/ do
   get '/games/switch_door/'
 end

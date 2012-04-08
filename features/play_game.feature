@@ -26,7 +26,7 @@ Feature: Play the game
     
   Scenario: 4. User does not access views in correct order
     Given I am on an unrelated web page
-    And I manually input a downstream route
+    And I manually route to the "choose" action
     Then I should go to the home page
     
   Scenario Outline: Game outcomes

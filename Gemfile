@@ -45,6 +45,8 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', :require => false
+  #gem 'guard-rspec'
+  gem 'growl_notify'
 end
 
 group :production do

@@ -21,7 +21,8 @@ gem 'haml'  # heroku deployment failed until I moved this out of :development, :
 gem 'haml-rails'
 
 group :development, :test do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'ruby-debug19', :require => 'ruby-debug'  # does not work well with ruby 1.9.3
+  gem 'debugger'  # fork of ruby-debug19 that does work well with 1.9.3
   gem 'sqlite3'
 end
 

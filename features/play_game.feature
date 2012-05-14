@@ -54,8 +54,8 @@ Feature: Play the game
     | pick_door | win_door | other_door | switch_door | choice  | outcome  |
     |     1     |     1    |     2      |       3     |   Yes!  | you lost |
     |     1     |     1    |     3      |       2     |   Yes!  | you lost |
-    |     1     |     2    |     3      |       1     |   Yes!  | You won! | 
     |     1     |     1    |     2      |       3     |   No!   | You won! |
+    |     1     |     2    |     3      |       1     |   Yes!  | You won! |
     |     1     |     2    |     3      |       1     |   No!   | you lost |
     |     1     |     3    |     2      |       3     |   Yes!  | you lost |
         

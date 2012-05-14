@@ -12,6 +12,7 @@ class GamesController < ApplicationController
     winner = get_random_door
     @game = Game.create!
     @game.w_door = winner
+    # initialize the 'won' and 'switched' flags
     @game.won = false
     @game.switched = false
     @game.save
@@ -24,11 +25,12 @@ class GamesController < ApplicationController
     begin
       @game = Game.find(session[:rec_id])
     rescue
-      # user has manually entered URL (out of sequence)?
+      # if above instruction returns an error,
+      # user has probably manually entered URL (out of sequence)
       @step = 1
       return redirect_to('/games')
     end
-    @game.u_door = params[:id]
+    @game.u_door = params[:id]  # this is the door selected by the user
     @game.save
     pick_show_door
     @step = 3
@@ -39,11 +41,12 @@ class GamesController < ApplicationController
     begin
       @game = Game.find(session[:rec_id])
     rescue
+      # if above instruction returns an error,
       # user has manually entered URL (out of sequence)?
       @step = 1
       return redirect_to('/games')
     end
-    @game.sw_door = @game.other_door
+    @game.sw_door = @game.other_door  # user decided to take the other door
     @game.switched = true
     @switched = true
     if @game.w_door == @game.sw_door
@@ -65,6 +68,7 @@ class GamesController < ApplicationController
     begin
       @game = Game.find(session[:rec_id])
     rescue
+      # if above instruction returns an error,
       # user has manually entered URL (out of sequence)?
       @step = 1
       return redirect_to('/games')
@@ -85,17 +89,21 @@ class GamesController < ApplicationController
   end
   
   # -- private --
-  #private
+  #private      # commented out for testing
   def calc_stats
+    # find total number of games where user switched doors
     ts = Game.find_all_by_switched(true).count
+    # find total number of games won where user switched doors
     sw = Game.find_all_by_switched_and_won(true, true).count
     if ts == 0
       @percent_switch = " No Data "
     else
       @percent_switch = ((sw.to_f / ts.to_f) * 100).round(2)
     end
-    
+
+    # find total number of games where user did not switch doors
     tns = Game.find_all_by_switched(false).count
+    # find total number of games won by users who did not switch doors
     nsw = Game.find_all_by_switched_and_won(false, true).count    
     if tns == 0
       @percent_no_switch = "No Data "
@@ -115,10 +123,13 @@ class GamesController < ApplicationController
     case c.length
     when 2
       # -- if length is 2, user selected winning door; pick show_door from remaining 2 --
-      @game.show_door = c[0]
-      @game.other_door = c[1]
+      #@game.show_door = c[0]
+      #@game.other_door = c[1]
+      @game.show_door = c.sample
+      @game.other_door = c - [@game.show_door]
     when 1
       # -- if length is 1, then user did not pick the winning door --
+      # and c[0] is the only door available to show
       @game.show_door = c[0]
       @game.other_door = @game.w_door
     end

@@ -125,8 +125,8 @@ class GamesController < ApplicationController
       # -- if length is 2, user selected winning door; pick show_door from remaining 2 --
       #@game.show_door = c[0]
       #@game.other_door = c[1]
-      @game.show_door = c.sample
-      @game.other_door = c - [@game.show_door]
+      @game.show_door = c.sample  # -- randomly select one of two remaining doors for "Monty" to show --
+      @game.other_door = (c - [@game.show_door])[0]
     when 1
       # -- if length is 1, then user did not pick the winning door --
       # and c[0] is the only door available to show
